@@ -1,6 +1,9 @@
 /*
 Сервлет работает с постами. Может их добовлять, удалять, отправлять. Более подробно ТЗ см.
 https://github.com/netology-code/jspr-homeworks/tree/master/04_servlets
+
+Метод init() изменен при помощи DI-annotation
+https://github.com/netology-code/jspr-homeworks/tree/master/05_di
 */
 
 package ru.netology.servlet;
