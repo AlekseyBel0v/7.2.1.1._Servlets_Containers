@@ -5,6 +5,7 @@ https://github.com/netology-code/jspr-homeworks/tree/master/04_servlets
 
 package ru.netology.servlet;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.netology.controller.PostController;
 import ru.netology.repository.PostRepository;
 import ru.netology.service.PostService;
@@ -18,12 +19,14 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        // Уровень репозитория
-        final var repository = new PostRepository();
-        // Уровень бизнес-логики
-        final var service = new PostService(repository);
-        // Уровень инфраструктурного кода
-        controller = new PostController(service);
+//        // Уровень репозитория
+//        final var repository = new PostRepository();
+//        // Уровень бизнес-логики
+//        final var service = new PostService(repository);
+//        // Уровень инфраструктурного кода
+//        controller = new PostController(service);
+        final var context = new AnnotationConfigApplicationContext("ru.netology");
+        controller = context.getBean(PostController.class);
     }
 
     @Override
