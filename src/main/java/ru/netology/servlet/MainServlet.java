@@ -1,14 +1,16 @@
 /*
 Сервлет работает с постами. Может их добовлять, удалять, отправлять. Более подробно ТЗ см.
 https://github.com/netology-code/jspr-homeworks/tree/master/04_servlets
+
+Метод init() изменен при помощи DI-java
+https://github.com/netology-code/jspr-homeworks/tree/master/05_di
 */
 
 package ru.netology.servlet;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.netology.config.JavaConfig;
 import ru.netology.controller.PostController;
-import ru.netology.repository.PostRepository;
-import ru.netology.service.PostService;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,14 +18,23 @@ import javax.servlet.http.HttpServletResponse;
 public class MainServlet extends HttpServlet {
     private PostController controller;
 
+//    @Override
+//    public void init() {
+//        // Уровень репозитория
+//        final var repository = new PostRepository();
+//        // Уровень бизнес-логики
+//        final var service = new PostService(repository);
+//        // Уровень инфраструктурного кода
+//        controller = new PostController(service);
+//    }
+
+
+
     @Override
     public void init() {
-        // Уровень репозитория
-        final var repository = new PostRepository();
-        // Уровень бизнес-логики
-        final var service = new PostService(repository);
-        // Уровень инфраструктурного кода
-        controller = new PostController(service);
+        final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
+        final var controller = context.getBean(PostController.class);
+//        final var controller = context.getBean("postController");
     }
 
     @Override
